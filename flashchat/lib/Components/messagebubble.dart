@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MessageBubble extends StatelessWidget {
-  MessageBubble({required this.sender, this.text, required this.isMe});
+  MessageBubble({required this.sender, required this.isMe, this.text});
 
   final String sender;
   final String? text;
@@ -12,40 +12,27 @@ class MessageBubble extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: Column(
-        crossAxisAlignment:
-            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-        children: <Widget>[
+
+        //Checking for if the text is from self
+        //if true, place the text bubble on the right side (end)
+        //if it is other sender, place the text bubble on the left side (start)
+        crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        children: <Widget> [
+
+          //create a greyish text stating the sender email with fontsize 12
           Text(
             this.sender,
             style: TextStyle(
               fontSize: 12.0,
-              color: Colors.black54,
+              color: Colors.black54
             ),
           ),
 
-          // Wraps using Material widget so that we have full control on the widget itself
+          //creates a message bubble using Material widget so that
+          //we have full control of the widget itself
           Material(
-            borderRadius: isMe
-                ? BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    bottomRight: Radius.circular(30.0),
-                    bottomLeft: Radius.circular(30.0))
-                : BorderRadius.only(
-                    bottomRight: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
-                    bottomLeft: Radius.circular(30.0)),
-            elevation: 5.0,
-            color: isMe ? Colors.lightBlueAccent : Colors.yellowAccent[100],
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-              child: Text(
-                this.text!,
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: isMe ? Colors.white : Colors.black,
-                ),
-              ),
-            ),
+            
+            borderRadius: isMe ? BorderRadius.only(),
           ),
         ],
       ),

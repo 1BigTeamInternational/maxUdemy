@@ -1,4 +1,4 @@
-import 'package:flashchat/Components/constant.dart';
+import 'package:flashchat/constant.dart';
 import 'package:flashchat/Components/messagebubble.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';

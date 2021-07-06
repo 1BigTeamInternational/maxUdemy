@@ -1,10 +1,10 @@
-import 'package:flashchat/Components/constant.dart';
+import 'package:flashchat/constant.dart';
 import 'package:flashchat/Components/standardbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:flashchat/Components/inputbox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flashchat/Screens/chat.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class Login extends StatefulWidget {
   static const String id = 'login_screen';
@@ -29,12 +29,14 @@ class _LoginState extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Hero(
-              tag: 'logo',
-              child: Image.asset(
-                'images/logo.png',
-                width: kLogoWidth,
-                height: kLogoHeight,
+            Flexible(
+              child: Hero(
+                tag: 'logo',
+                child: Image.asset(
+                  'images/logo.png',
+                  width: kLogoWidth,
+                  height: kLogoHeight,
+                ),
               ),
             ),
             InputBox(
