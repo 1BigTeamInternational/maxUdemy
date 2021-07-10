@@ -2,9 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flashchat/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flashchat/components/messagebubble.dart';
 
 final _firestore = FirebaseFirestore.instance;
 User? loggedInUser;
+late String typedMessage;
 
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
@@ -14,6 +16,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final msgTextController = TextEditingController();  //creates a controller for the InputBox
   final _auth = FirebaseAuth.instance;
 
   @override
@@ -22,7 +25,7 @@ class _ChatScreenState extends State<ChatScreen> {
     getCurrentUser();
   }
 
-  void getCurrentUser() {
+  void getCurrentUser() async {
     final user = _auth.currentUser;
     loggedInUser = user;
   }
@@ -37,6 +40,7 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
             icon: Icon(Icons.close),
             onPressed: () {
+              _auth.signOut();
               Navigator.pop(context);
             },
           ),
@@ -54,15 +58,25 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      controller: msgTextController,
                       decoration: kMessageTextFieldDecoration,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        typedMessage = value;
+                      },
                     ),
                   ),
                   TextButton(
                     child: Text(
                       'Send',
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      msgTextController.clear();  //clear the TextField once press send`
+                      _firestore.collection(kDatabaseName).add({
+                        kText: typedMessage,
+                        kSender: loggedInUser?.email,
+                        kTimeStamp: DateTime.now(),
+                      });
+                    },
                   ),
                 ],
               ),
@@ -81,7 +95,7 @@ class MessagesStream extends StatelessWidget {
     return StreamBuilder <QuerySnapshot> (
       
       //Getting Stream from firebase ordered based on Timestamp field
-      //where teh latest timestamp will be shown last
+      //where the latest timestamp will be shown last
       stream: _firestore.collection(kDatabaseName).orderBy(kTimeStamp, descending: false).snapshots(),
       builder: (context,snapshot) {
 
@@ -97,8 +111,37 @@ class MessagesStream extends StatelessWidget {
             ),
           );
         } //if
-        
-      }
+
+        List <MessageBubble> messageBubbles = []; //create a List of Message Bubble
+        final messages = snapshot.data?.docs.reversed; //get the data stream from database in a reversed order
+
+        //checks for no data stream
+        if (messages != null) {
+
+          //using the for loop to loop through all the messages using msg as the index
+          for (var msg in messages) {
+            final msgText = msg.get(kText);
+            final msgSender = msg.get(kSender);
+            final messageBubble = MessageBubble(
+              sender: msgSender,
+              text: msgText,
+              isMe: msgSender == loggedInUser?.email, //Checks for if the sender is self, returns true, else false
+            );
+
+            messageBubbles.add(messageBubble);  //adds the message bubble to the list
+          } // for-loop
+        } // if
+
+        //Using expanded so that it can take up all the space
+        return Expanded(
+          // Creates a ListView (comes with scroll function)
+          child: ListView(
+            reverse: true,  //reverse makes the ListView sticky to the end view
+            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+            children: messageBubbles,
+          )
+        );
+      } // builder
     );
   }
 }
