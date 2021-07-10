@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>662420716278-8pll31bhf3d5aulkna97skmkvr2uqsld.apps.googleusercontent.com</string>
+	<string>778578943454-ue60bmv03da8hachh3lfjbjte0sn880l.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.662420716278-8pll31bhf3d5aulkna97skmkvr2uqsld</string>
+	<string>com.googleusercontent.apps.778578943454-ue60bmv03da8hachh3lfjbjte0sn880l</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCfift_T2cjqI5na1UJKhZE3T-vF7-8RL4</string>
+	<string>AIzaSyB2VaAHRNebePtDxUpaSei4lkVfvpjTfcU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>662420716278</string>
+	<string>778578943454</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.MaxTay.flashchat</string>
 	<key>PROJECT_ID</key>
-	<string>flash-chat-fb88b</string>
+	<string>flash-chat-ba373</string>
 	<key>STORAGE_BUCKET</key>
-	<string>flash-chat-fb88b.appspot.com</string>
+	<string>flash-chat-ba373.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:662420716278:ios:2aadd83d935ee9983f4ad7</string>
+	<string>1:778578943454:ios:720882d01a02451987914f</string>
 </dict>
 </plist>
