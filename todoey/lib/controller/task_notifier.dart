@@ -11,7 +11,9 @@ class TaskNotifier extends ChangeNotifier {
   
   UnmodifiableListView<Task> get tasks => UnmodifiableListView(_tasks);
 
-  void addTask(Task task) {
+  void addTask(String title) {
+    final Task task = Task(title: title);
+    
     _tasks.add(task);
     notifyListeners();
   }

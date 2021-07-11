@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:todoey/constant.dart';
 import 'package:provider/provider.dart';
 import 'package:todoey/controller/task_notifier.dart';
-import 'package:todoey/model/task.dart';
 
 class AddTaskScreen extends StatelessWidget {
  
@@ -51,7 +50,7 @@ class AddTaskScreen extends StatelessWidget {
                   primary: Colors.lightBlueAccent,
                 ),
                 onPressed: () {
-                  context.read<TaskNotifier>().addTask(Task(title: newTaskTitle));
+                  context.read<TaskNotifier>().addTask(newTaskTitle);
                   Navigator.pop(context);
                 },
               ),
