@@ -9,18 +9,21 @@ class TaskNotifier extends ChangeNotifier {
     Task(title: 'Shopping'),
   ];
   
+  // UnmodifiableListView is a List to view other list e.g. window to look at the list
+  // Makes the tasks to be unmodifiable 
+  // So whenever accessing tasks you are just reading it not changing it
   UnmodifiableListView<Task> get tasks => UnmodifiableListView(_tasks);
 
   void addTask(String title) {
     final Task task = Task(title: title);
-    
+
     _tasks.add(task);
     notifyListeners();
   }
 
   void deleteTask(index) {
-    // Remove where the title is equal to the one on the list
-    _tasks.removeWhere((_task) => _task.title == _tasks[index].title);
+    // Remove the Task object from the List
+    _tasks.remove(_tasks[index]);
     notifyListeners();
   }
 
